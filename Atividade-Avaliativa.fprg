@@ -4,26 +4,79 @@
         <attribute name="name" value="Atividade-Avaliativa"/>
         <attribute name="authors" value="Aluno"/>
         <attribute name="about" value=""/>
-        <attribute name="saved" value="2026-06-10 08:55:54 "/>
+        <attribute name="saved" value="2026-06-10 11:32:22 "/>
         <attribute name="created" value="QWx1bm87RVNOMTIyRDEyMDQ3OTg7MjAyNi0wNi0xMDsiMDg6MzU6MTIgIjsyNTE2"/>
-        <attribute name="edited" value="QWx1bm87RVNOMTIyRDEyMDQ3OTg7MjAyNi0wNi0xMDsiMDg6NTU6NTQgIjsxOzI2MzI="/>
+        <attribute name="edited" value="QWx1bm87RVNOMTIyRDEyMDQ3OTg7MjAyNi0wNi0xMDsiMTE6MzI6MjIgIjs0OzI2MTk="/>
     </attributes>
     <function name="Main" type="None" variable="">
         <parameters/>
         <body>
-            <declare name="Peso" type="Integer" array="False" size=""/>
-            <declare name="Local" type="String" array="False" size=""/>
-            <output expression="&quot;Pergunta&quot;" newline="True"/>
-            <input variable="Peso"/>
-            <if expression="Peso &lt;= 2">
-                <then>
-                    <if expression="">
-                        <then/>
+            <declare name="I" type="Integer" array="False" size=""/>
+            <declare name="Peso" type="Real" array="False" size=""/>
+            <declare name="Destino" type="String" array="False" size=""/>
+            <declare name="Custo" type="Real" array="False" size=""/>
+            <declare name="totalPeso" type="Real" array="False" size=""/>
+            <assign variable="totalPeso" expression="0"/>
+            <declare name="totalFaturamento" type="Real" array="False" size=""/>
+            <assign variable="totalFaturamento" expression="0"/>
+            <declare name="ticketMedio" type="Real" array="False" size=""/>
+            <for variable="i" start="0" end="9" direction="inc" step="1">
+                <output expression="&quot;Pacote &quot; &amp; i+1 &amp; &quot;:&quot;" newline="True"/>
+                <do expression="Peso &lt;= 0">
+                    <output expression="&quot;Escreva o Peso do Pacote:&quot;" newline="True"/>
+                    <input variable="Peso"/>
+                    <if expression="Peso &lt;= 0">
+                        <then>
+                            <output expression="&quot;Erro! O peso deve ser maior que zero.&quot;" newline="True"/>
+                        </then>
                         <else/>
                     </if>
-                </then>
-                <else/>
-            </if>
+                </do>
+                <do expression="Destino &lt;&gt; &quot;Nacional&quot; And Destino &lt;&gt; &quot;Internacional&quot; And Destino &lt;&gt; &quot;nacional&quot; And Destino &lt;&gt; &quot;internacional&quot; And Destino &lt;&gt; &quot;NACIONAL&quot; And Destino &lt;&gt; &quot;INTERNACIONAL&quot;">
+                    <output expression="&quot;Digite o destino (Nacional ou Internacional):&quot;" newline="True"/>
+                    <input variable="Destino"/>
+                    <if expression="Destino &lt;&gt; &quot;Nacional&quot; And Destino &lt;&gt; &quot;Internacional&quot; And Destino &lt;&gt; &quot;nacional&quot; And Destino &lt;&gt; &quot;internacional&quot; And Destino &lt;&gt; &quot;NACIONAL&quot; And Destino &lt;&gt; &quot;INTERNACIONAL&quot;">
+                        <then>
+                            <output expression="&quot;Destino inv&#225;lido!&quot;" newline="True"/>
+                        </then>
+                        <else/>
+                    </if>
+                </do>
+                <if expression="peso &lt;= 2">
+                    <then>
+                        <output expression="&quot;custo = 10&quot;" newline="True"/>
+                        <assign variable="Custo" expression="10"/>
+                    </then>
+                    <else>
+                        <if expression="peso &lt;= 10">
+                            <then>
+                                <output expression="&quot;custo = 20&quot;" newline="True"/>
+                                <assign variable="Custo" expression="20"/>
+                            </then>
+                            <else>
+                                <output expression="&quot;custo = 30&quot;" newline="True"/>
+                                <assign variable="Custo" expression="30"/>
+                            </else>
+                        </if>
+                    </else>
+                </if>
+                <if expression="Destino = &quot;Internacional&quot; or Destino = &quot;internacional&quot; or Destino = &quot;INTERNACIONAL&quot;">
+                    <then>
+                        <assign variable="Custo" expression="Custo + (Custo * 0.20)"/>
+                    </then>
+                    <else/>
+                </if>
+                <assign variable="totalPeso" expression="totalPeso + Peso"/>
+                <assign variable="totalFaturamento" expression="totalFaturamento + Custo"/>
+                <output expression="&quot;Frete calculado: R$ &quot; &amp; Custo" newline="True"/>
+            </for>
+            <assign variable="ticketMedio" expression="totalFaturamento / 10"/>
+            <output expression="&quot;========== RESULTADO FINAL ==========&quot;" newline="True"/>
+            <output expression="&quot;Total de pacotes: 10&quot;" newline="True"/>
+            <output expression="&quot;Carga total acumulada: &quot; &amp; totalPeso &amp; &quot; kg&quot;" newline="True"/>
+            <output expression="&quot;Faturamento bruto do lote: R$ &quot; &amp; totalFaturamento" newline="True"/>
+            <output expression="&quot;Ticket m&#233;dio por pacote: R$ &quot; &amp; ticketMedio" newline="True"/>
+            <output expression="&quot;====================================&quot;" newline="True"/>
         </body>
     </function>
 </flowgorithm>
